@@ -58,7 +58,6 @@ public class CGenerator extends CodeGenerator {
 			isTTPOStask = opts.isTTPOS();
 			isD3task = opts.isD3();
 		}
-		System.out.println(isTTPOStask);
 	}
 
 	/**
