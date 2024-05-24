@@ -10,7 +10,7 @@
     - [Compiler Arguments](#compiler-arguments)
         - [Example Commands](#example-commands)
 - [Examples](#examples)
-- [Publications](#publications)
+
 
 ## What is this?
 
