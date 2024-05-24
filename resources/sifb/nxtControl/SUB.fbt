@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="SUB" Comment="Subtract">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="UoA" Version="1.0" Author="gsha041" Date="02.01.2011" Remarks="Initial Version" />
+  <CompilerInfo header="package fb.rt.UoA;"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="IN1" />
+		<With Var="IN2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="OUT" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="DINT" Comment="Argument" />
+	  <VarDeclaration Name="IN2" Type="DINT" Comment="Argument" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="DINT" Comment="Result: IN1 - IN2 - IN3 - ..." />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState x="652.94104" Name="START" Comment="Initial State" y="157.18979" />
+      <ECState x="206.53587" Name="REQ" Comment="Normal execution" y="464.05243">
+        <ECAction Algorithm="SUB" Output="CNF"/>
+      </ECState>
+      <ECTransition x="455.55554" Destination="REQ" Source="START" y="300.0" Condition="REQ" />
+      <ECTransition x="216.66666" Destination="REQ" Source="REQ" y="161.1111" Condition="REQ" />
+    </ECC>
+    <Algorithm Name="SUB" Comment="Normally executed algorithm">
+      <ST Text="OUT := IN1 - IN2;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="COMMCHANNEL" Comment="Service Interface Function Block Type" Namespace="IEC61499">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH " Version="0.0" Author="Horst Mayer" Date="9/14/2008" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT">
+        <With Var="QI" />
+		<With Var="PROTO" />
+		<With Var="PEERADDR" />
+		<With Var="ID" />
+		<With Var="ALIVE" />
+      </Event>
+      <Event Name="REQ">
+       <With Var="ALIVE" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO">
+        <With Var="QO" />
+        <With Var="STATUS" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" />
+      <VarDeclaration Name="PROTO" Type="DINT" />
+	  <VarDeclaration Name="OWNADDR" Type="STRING" />
+	  <VarDeclaration Name="PEERADDR" Type="STRING" />
+	  <VarDeclaration Name="ID" Type="ULINT" />
+	  <VarDeclaration Name="ALIVE" Type="DINT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="CLNTQO" Type="BOOL" Comment="Event Output Qualifier" />
+      <VarDeclaration Name="CLNTSTATUS" Type="STRING" Comment="Service Status" />
+	  <VarDeclaration Name="SRVRQO" Type="BOOL" Comment="Event Output Qualifier" />
+      <VarDeclaration Name="SRVRSTATUS" Type="STRING" Comment="Service Status" />
+	</OutputVars>
+  </InterfaceList>
+  <Service />
+</FBType>

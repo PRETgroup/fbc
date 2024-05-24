@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+application {
+    mainClass = "fbtostrl.FBtoStrl"
+}
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.json:json:20240303'
+    implementation 'org.jdom:jdom2:2.0.6.1'
+    implementation 'xerces:xercesImpl:2.12.2'
+    implementation files('libs/STC.jar')
+    implementation files('libs/PRET-C Compiler.jar')
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'FBC',
+            'Implementation-Version': version,
+            'Main-Class': application.mainClass
+        )
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}

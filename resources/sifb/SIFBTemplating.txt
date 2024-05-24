@@ -1,0 +1,53 @@
+// 09-05-2011 : Needs to be updated
+()= required
+[] = optional
+| = seperator for optional arguments
+
+@copyFile#(filename)
+	Copy file to dest path as well (Copied file is added to Makefile if it ends with ".c")
+	
+@addObjDependency#(filename)
+	Adds object file (*.o) to linking step of Makefile.
+
+@index@
+	Replace with SIFB's "Index" eg: PUBL_5 index = 5
+	-- Gareth's connection count to "@CNT<name>@" signals also replaces index if not already set
+	
+@postfix@
+	Replace with the SIFB's unique postfix
+	
+@includeUserTypes@
+	Includes header files for user-defined types that replace the ANY type.
+	
+@globalType@
+	Data type of the shared global variable.
+
+@sifbname@
+	-- Gareth added.. but it isnt used at
+	Replace with the Block's TypeName
+	
+@CNT<name>@
+	Replace with #of connections to that port eg SD_@CNT@ = #of connections to SD_##
+	
+@indexRange#(first num)[ANY#(PortName)|toANY#|ANYto#]@
+	Default:
+		Replicate line with @***@ replaced with (first num) to index
+	ANY#(PortName):
+		Before performing default behaviour:
+			Replace ANY with the type of the port (based on what signal is bound to)
+		
+@begin_varlist#varlist@
+	// Within These Tags:
+	@#@:
+		varlist index 0->list.length -1
+	@#+1@:
+		varlist index 1->list.length
+	@var@
+		key / varname
+	@value
+		value of the key in varlist
+@end_varlist@ // no #varlist... i.e. no nesting!
+
+Obsolete? (Maybe Esterel only)
+@declToANY@
+@declANYto@

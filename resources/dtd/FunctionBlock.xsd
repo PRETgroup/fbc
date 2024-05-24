@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 (http://www.altova.com) by Cheng Pang (UoA) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Identification">
+		<xs:annotation>
+			<xs:documentation>Comment element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Standard" type="xs:string" use="optional"/>
+			<xs:attribute name="Classification" type="xs:string" use="optional"/>
+			<xs:attribute name="ApplicationDomain" type="xs:string" use="optional"/>
+			<xs:attribute name="Function" type="xs:string" use="optional"/>
+			<xs:attribute name="Type" type="xs:string" use="optional"/>
+			<xs:attribute name="Description" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VersionInfo">
+		<xs:annotation>
+			<xs:documentation>Comment element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Organization" type="xs:string" use="required"/>
+			<xs:attribute name="Version" type="xs:string" use="required"/>
+			<xs:attribute name="Author" type="xs:string" use="required"/>
+			<xs:attribute name="Date" type="xs:string" use="required"/>
+			<xs:attribute name="Remarks" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CompilerInfo">
+		<xs:annotation>
+			<xs:documentation>Comment element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Compiler" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="header" type="xs:string" use="optional"/>
+			<xs:attribute name="classdef" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Compiler">
+		<xs:annotation>
+			<xs:documentation>Comment element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Language" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Java"/>
+						<xs:enumeration value="Cpp"/>
+						<xs:enumeration value="C"/>
+						<xs:enumeration value="Other"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="Vendor" type="xs:string" use="required"/>
+			<xs:attribute name="Product" type="xs:string" use="required"/>
+			<xs:attribute name="Version" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FB">
+		<xs:annotation>
+			<xs:documentation>Common element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Connection">
+		<xs:annotation>
+			<xs:documentation>Common element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Source" type="xs:string" use="required"/>
+			<xs:attribute name="Destination" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="dx1" type="xs:string" use="optional"/>
+			<xs:attribute name="dx2" type="xs:string" use="optional"/>
+			<xs:attribute name="dy" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EventConnections">
+		<xs:annotation>
+			<xs:documentation>Common element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Connection" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DataConnections">
+		<xs:annotation>
+			<xs:documentation>Common element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Connection" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AdapterConnections">
+		<xs:annotation>
+			<xs:documentation>Common element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Connection" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FBNetwork">
+		<xs:annotation>
+			<xs:documentation>Common element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="FB" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="EventConnections" minOccurs="0"/>
+				<xs:element ref="DataConnections" minOccurs="0"/>
+				<xs:element ref="AdapterConnections" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="With">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Var" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Event">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="With" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="optional"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EventInputs">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Event" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EventOutputs">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Event" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VarDeclaration">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="ArraySize" type="xs:string" use="optional"/>
+			<xs:attribute name="InitialValue" type="xs:string" use="optional"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InputVars">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="VarDeclaration" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OutputVars">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="VarDeclaration" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AdapterDeclaration">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Sockets">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="AdapterDeclaration" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Plugs">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="AdapterDeclaration" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InterfaceList">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:all>
+				<xs:element ref="EventInputs" minOccurs="0"/>
+				<xs:element ref="EventOutputs" minOccurs="0"/>
+				<xs:element ref="InputVars" minOccurs="0"/>
+				<xs:element ref="OutputVars" minOccurs="0"/>
+				<xs:element ref="Sockets" minOccurs="0"/>
+				<xs:element ref="Plugs" minOccurs="0"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InternalVars">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="VarDeclaration" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ECAction">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Algorithm" type="xs:string" use="optional"/>
+			<xs:attribute name="Output" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ECState">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ECAction" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ECTransition">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Source" type="xs:string" use="required"/>
+			<xs:attribute name="Destination" type="xs:string" use="required"/>
+			<xs:attribute name="Condition" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- gsha041: Addition for HCECCs -->
+	<xs:element name="HCECCRelation">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Source" type="xs:string" use="required"/>
+			<xs:attribute name="Destination" type="xs:string" use="required"/>
+			<xs:attribute name="Relation" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- gsha041: Addition for HCECCs -->
+	<xs:element name="HCECC">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ECC" maxOccurs="unbounded"/>
+				<xs:element ref="HCECCRelation" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+    <xs:element name="ECC">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ECState" maxOccurs="unbounded"/>
+				<xs:element ref="ECTransition" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FBType">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identification" minOccurs="0"/>
+				<xs:element ref="VersionInfo" maxOccurs="unbounded"/>
+				<xs:element ref="CompilerInfo" minOccurs="0"/>
+				<xs:element ref="InterfaceList"/>
+				<xs:choice minOccurs="0">
+					<xs:element ref="BasicFB"/>
+					<xs:element ref="FBNetwork"/>
+				</xs:choice>
+				<xs:element ref="Service" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FBD">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FB" maxOccurs="unbounded"/>
+				<xs:element ref="DataConnections"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ST">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Text" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Rung">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Output" type="xs:string" use="required"/>
+			<xs:attribute name="Expression" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LD">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Rung" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Other">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Language" type="xs:string" use="required"/>
+			<!-- YLH: Require function prototype -->
+			<xs:attribute name="Prototype" type="xs:string" use="required"/>
+			<xs:attribute name="Text" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Algorithm">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element ref="FBD"/>
+					<xs:element ref="ST"/>
+					<xs:element ref="LD"/>
+					<xs:element ref="Other"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BasicFB">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="InternalVars" minOccurs="0"/>
+<!-- gsha041: Addition for HCECCs -->					
+				<xs:choice minOccurs="0">
+					<xs:element ref="ECC"/>
+					<xs:element ref="HCECC"/>
+				</xs:choice>
+				<xs:element ref="Algorithm" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InputPrimitive">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Interface" type="xs:string" use="required"/>
+			<xs:attribute name="Event" type="xs:string" use="required"/>
+			<xs:attribute name="Parameters" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OutputPrimitive">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Interface" type="xs:string" use="required"/>
+			<xs:attribute name="Event" type="xs:string" use="required"/>
+			<xs:attribute name="Parameters" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceTransaction">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="InputPrimitive" minOccurs="0"/>
+				<xs:element ref="OutputPrimitive" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceSequence">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ServiceTransaction" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Service">
+		<xs:annotation>
+			<xs:documentation>FBType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ServiceSequence" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="RightInterface" type="xs:string" use="required"/>
+			<xs:attribute name="LeftInterface" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AdapterType">
+		<xs:annotation>
+			<xs:documentation>AdapterType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identification" minOccurs="0"/>
+				<xs:element ref="VersionInfo" maxOccurs="unbounded"/>
+				<xs:element ref="CompilerInfo" minOccurs="0"/>
+				<xs:element ref="InterfaceList"/>
+				<xs:element ref="Service" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FBTypeName">
+		<xs:annotation>
+			<xs:documentation>ResourceType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ResourceType">
+		<xs:annotation>
+			<xs:documentation>ResourceType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identification" minOccurs="0"/>
+				<xs:element ref="VersionInfo" maxOccurs="unbounded"/>
+				<xs:element ref="CompilerInfo" minOccurs="0"/>
+				<xs:element ref="FBTypeName" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="VarDeclaration" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="FBNetwork"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ResourceTypeName">
+		<xs:annotation>
+			<xs:documentation>DeviceType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Resource">
+		<xs:annotation>
+			<xs:documentation>DeviceType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="FBNetwork" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DeviceType">
+		<xs:annotation>
+			<xs:documentation>DeviceType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identification" minOccurs="0"/>
+				<xs:element ref="VersionInfo" maxOccurs="unbounded"/>
+				<xs:element ref="CompilerInfo" minOccurs="0"/>
+				<xs:element ref="VarDeclaration" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ResourceTypeName" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Resource" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="FBNetwork" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Application">
+		<xs:annotation>
+			<xs:documentation>System element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FBNetwork"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Mapping">
+		<xs:annotation>
+			<xs:documentation>System element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="From" type="xs:string" use="required"/>
+			<xs:attribute name="To" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Device">
+		<xs:annotation>
+			<xs:documentation>System element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Resource" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="FBNetwork" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="System">
+		<xs:annotation>
+			<xs:documentation>System element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identification" minOccurs="0"/>
+				<xs:element ref="VersionInfo" maxOccurs="unbounded"/>
+				<xs:element ref="Application" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Device" maxOccurs="unbounded"/>
+				<xs:element ref="Mapping" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Segment" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Link" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubAppEvent">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="optional"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubAppEventInputs">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SubAppEvent" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubAppEventOutputs">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SubAppEvent" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubAppInterfaceList">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SubAppEventInputs" minOccurs="0"/>
+				<xs:element ref="SubAppEventOutputs" minOccurs="0"/>
+				<xs:element ref="InputVars" minOccurs="0"/>
+				<xs:element ref="OutputVars" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubApp">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubAppNetwork">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SubApp" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="FB" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="EventConnections" minOccurs="0"/>
+				<xs:element ref="DataConnections" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SubAppType">
+		<xs:annotation>
+			<xs:documentation>SubAppType element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Identification" minOccurs="0"/>
+				<xs:element ref="VersionInfo" maxOccurs="unbounded"/>
+				<xs:element ref="CompilerInfo" minOccurs="0"/>
+				<xs:element ref="SubAppInterfaceList"/>
+				<xs:element ref="SubAppNetwork" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Segment">
+		<xs:annotation>
+			<xs:documentation>Network element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Type" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+			<xs:attribute name="x" type="xs:string" use="optional"/>
+			<xs:attribute name="y" type="xs:string" use="optional"/>
+			<xs:attribute name="dx1" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Parameter">
+		<xs:annotation>
+			<xs:documentation>Network element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Name" type="xs:string" use="required"/>
+			<xs:attribute name="Value" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Link">
+		<xs:annotation>
+			<xs:documentation>Network element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="SegmentName" type="xs:string" use="required"/>
+			<xs:attribute name="CommResource" type="xs:string" use="required"/>
+			<xs:attribute name="Comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

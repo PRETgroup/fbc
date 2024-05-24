@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="PUBLISH_ED_INT" Comment="Service Interface Function Block Type" Namespace="IEC61499">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="nxtControl GmbH " Version="0.0" Author="Horst Mayer" Date="9/14/2008" Remarks="template" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT">
+        <With Var="QI" />
+		<With Var="ID" />
+      </Event>
+      <Event Name="REQ">
+		<With Var="BagCount" />
+		<With Var="BagIDData" />
+		<With Var="BagLPosData" />
+		<With Var="BagLengthData" />
+       </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO">
+        <With Var="QO" />
+      </Event>
+	  <Event Name="CNF">
+        <With Var="QO" />
+		<With Var="STATUS" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="QI" Type="BOOL" />
+      <VarDeclaration Name="ID" Type="STRING" />
+	  <VarDeclaration Name="BagCount" Type="INT"/>
+	  <VarDeclaration Name="BagIDData" Type="INT" ArraySize="20"/>
+	  <VarDeclaration Name="BagLPosData" Type="INT" ArraySize="20"/>
+	  <VarDeclaration Name="BagLengthData" Type="INT" ArraySize="20"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QO" Type="BOOL" Comment="Event Output Qualifier" />
+	  <VarDeclaration Name="STATUS" Type="STRING" />
+	</OutputVars>
+  </InterfaceList>
+  <Service />
+</FBType>

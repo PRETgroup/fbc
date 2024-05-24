@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FBType SYSTEM "../LibraryElement.dtd">
+<FBType Name="DIV" Comment="Divide">
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="UoA" Version="1.0" Author="gsha041" Date="02.01.2011" Remarks="Initial Version" />
+  <CompilerInfo header="package fb.rt.UoA;"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="REQ" Comment="Normal Execution Request">
+        <With Var="IN1" />
+        <With Var="IN2" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation">
+        <With Var="OUT1" />
+        <With Var="ERR1" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="DINT" Comment="Dividend" />
+	  <VarDeclaration Name="IN2" Type="DINT" Comment="Divisor" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT1" Type="DINT" Comment="Result: INn1 / INn2" />
+      <VarDeclaration Name="ERR1" Type="BOOL" Comment="Error (division by zero)" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState x="652.94104" Name="START" Comment="Initial State" y="157.18979" />
+      <ECState x="206.53587" Name="REQ" Comment="Normal execution" y="464.05243">
+        <ECAction Algorithm="DIV" Output="CNF"/>
+      </ECState>
+      <ECTransition x="455.55554" Destination="REQ" Source="START" y="300.0" Condition="REQ" />
+      <ECTransition x="216.66666" Destination="REQ" Source="REQ" y="161.1111" Condition="REQ" />
+    </ECC>
+    <Algorithm Name="DIV" Comment="Normally executed algorithm">
+      <ST Text="IF IN2 = 0 THEN&#10; ERR1 := true;&#10; ELSE&#10; OUT1 := IN1 / IN2;&#10; END_IF;&#10;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

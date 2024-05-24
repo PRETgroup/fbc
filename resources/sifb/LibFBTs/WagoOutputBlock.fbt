@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Name="WagoOutputBlock" Comment="Basic Function Block Type">
+  <Identification Standard="61499-2" />
+  <VersionInfo Date="2009-11-20" Organization="University of Auckland" Author="JHC" Version="0.0" />
+  <CompilerInfo header="package fb.rt.wago; #include &#34;kbusapi.h&#34;" />
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request">
+        <With Var="ByteIndex" />
+      </Event>
+      <Event Name="REQ" Comment="Execution Confirmation">
+        <With Var="DO0" />
+        <With Var="DO1" />
+        <With Var="DO2" />
+        <With Var="DO3" />
+        <With Var="DO4" />
+        <With Var="DO5" />
+        <With Var="DO6" />
+        <With Var="DO7" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation" />
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="ByteIndex" Type="INT" />
+      <VarDeclaration Name="DO0" Type="BOOL" />
+      <VarDeclaration Name="DO1" Type="BOOL" />
+      <VarDeclaration Name="DO2" Type="BOOL" />
+      <VarDeclaration Name="DO3" Type="BOOL" />
+      <VarDeclaration Name="DO4" Type="BOOL" />
+      <VarDeclaration Name="DO5" Type="BOOL" />
+      <VarDeclaration Name="DO6" Type="BOOL" />
+      <VarDeclaration Name="DO7" Type="BOOL" />
+    </InputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState x="256.25" Name="START" Comment="Initial State" y="243.75" />
+      <ECState x="1181.25" Name="SetOutputs" y="618.75">
+        <ECAction Output="CNF" Algorithm="SetKBusInputs" />
+      </ECState>
+      <ECTransition x="793.75" Destination="SetOutputs" Source="START" y="243.75" Condition="INIT" />
+      <ECTransition x="1181.25" Destination="SetOutputs" Source="SetOutputs" y="850.0" Condition="REQ" />
+    </ECC>
+    <Algorithm Name="SetKBusInputs" Comment="Normally executed algorithm">
+      <Other Language="Java" Text="// read byte from pab and show it on console&#10;KbusOpen();&#10;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] = 0x00; // CLEAR&#10;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO0;// &#60;&#60; 0;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO1 &#60;&#60; 1;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO2 &#60;&#60; 2;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO3 &#60;&#60; 3;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO4 &#60;&#60; 4;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO5 &#60;&#60; 5;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO6 &#60;&#60; 6;&#10;pstPabOUT-&#62;uc.Pab[me-&#62;ByteIndex] |= me-&#62;DO7 &#60;&#60; 7;&#10;&#10;// Write Output values&#10;KbusUpdate();&#10;&#10;// Close&#10;KbusClose();&#10;" />
+    </Algorithm>
+  </BasicFB>
+</FBType>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="WagoInputBlock" Comment="Basic Function Block Type" >
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="University of Auckland" Version="0.0" Author="JHC" Date="2009-11-20" />
+  <CompilerInfo header="package fb.rt.wago; #include &#34;kbusapi.h&#34;" >
+  </CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request" >
+        <With Var="ByteIndex" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Comment="Execution Confirmation" >
+        <With Var="DI0" />
+        <With Var="DI1" />
+        <With Var="DI2" />
+        <With Var="DI3" />
+        <With Var="DI4" />
+        <With Var="DI5" />
+        <With Var="DI6" />
+        <With Var="DI7" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="ByteIndex" Type="INT" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="DI0" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI1" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI2" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI3" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI4" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI5" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI6" Type="BOOL" InitialValue="false" />
+      <VarDeclaration Name="DI7" Type="BOOL" InitialValue="false" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC >
+      <ECState Name="START" Comment="Initial State" x="256.25" y="243.75" >
+      </ECState>
+      <ECState Name="GetInputs" x="1181.25" y="618.75" >
+        <ECAction Algorithm="GetKBusInputs" Output="CNF" />
+      </ECState>
+      <ECTransition Source="START" Destination="GetInputs" Condition="INIT" x="793.75" y="243.75" />
+      <ECTransition Source="GetInputs" Destination="GetInputs" Condition="1" x="1181.25" y="850.0" />
+    </ECC>
+  <Algorithm Name="GetKBusInputs" Comment="Normally executed algorithm" >
+    <Other Language="Java" Text="// read byte from pab and show it on console&#10;KbusOpen();&#10;// read input value&#10;KbusUpdate();&#10;&#10;me->DI0 = (0x1 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI1 = (0x2 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI2 = (0x4 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI3 = (0x8 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI4 = (0x10 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI5 = (0x20 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI6 = (0x40 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;me->DI7 = (0x80 &#38; pstPabIN->uc.Pab[me->ByteIndex]) > 0;&#10;&#10;// Close&#10;KbusClose();&#10;" />
+  </Algorithm>
+  </BasicFB>
+</FBType>
