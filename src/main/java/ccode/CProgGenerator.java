@@ -394,18 +394,20 @@ public class CProgGenerator {
 	public void copyPTARMFiles(String fileName) {
 		// deadline.h
 		String hname = CodeGenerator.getParentName(fileName) + "deadline.h";
-		String file = "resources" + File.separator + "ptarm"+ File.separator + "deadline.h";
+		String file = "ptarm/deadline.h";
 		BufferedWriter out = null;
 		BufferedReader in = null;
 		try {
+			InputStream fileInputStream = CProgGenerator.class.getResourceAsStream("/"+file);
+			if(fileInputStream == null) {
+				OutputManager.printError("", file + 
+						": Could not be opened.\n", OutputLevel.FATAL);
+				System.exit(-1);
+			}
 			out = new BufferedWriter(new FileWriter(hname));
 			//fileNames.add(hname);
-			in = new BufferedReader(new FileReader(file));	
+			in = new BufferedReader(new InputStreamReader(fileInputStream));
 			CodeGenerator.plainCopyFile(out, in);
-		} catch (FileNotFoundException e) {
-			OutputManager.printError("", file + 
-					": Could not be opened.\n", OutputLevel.FATAL);
-			System.exit(-1);
 		} catch (IOException e) {
 			OutputManager.printError("", hname + 
 					": Could not be opened.\n", OutputLevel.FATAL);
@@ -415,17 +417,18 @@ public class CProgGenerator {
 		
 		// ptthread.h
 		hname = CodeGenerator.getParentName(fileName) + "ptthread.h";
-		file = "resources" + File.separator + "ptarm"+ File.separator + "ptthread.h";
+		file = "ptarm/ptthread.h";
 		try {
+			InputStream fileInputStream = CProgGenerator.class.getResourceAsStream("/"+file);
+			if(fileInputStream == null) {
+				OutputManager.printError("", file + 
+						": Could not be opened.\n", OutputLevel.FATAL);
+				System.exit(-1);
+			}
 			out = new BufferedWriter(new FileWriter(hname));
 			//fileNames.add(hname);
-			in = new BufferedReader(new FileReader(file));	
+			in = new BufferedReader(new InputStreamReader(fileInputStream));
 			CodeGenerator.plainCopyFile(out, in);
-			
-		} catch (FileNotFoundException e) {
-			OutputManager.printError("", file + 
-					": Could not be opened.\n", OutputLevel.FATAL);
-			System.exit(-1);
 		} catch (IOException e) {
 			OutputManager.printError("", hname + 
 					": Could not be opened.\n", OutputLevel.FATAL);
@@ -434,16 +437,18 @@ public class CProgGenerator {
 		
 		// ptio.h
 		hname = CodeGenerator.getParentName(fileName) + "ptio.h";
-		file = "resources" + File.separator + "ptarm" + File.separator  + "ptio.h";
+		file = "ptarm/ptio.h";
 		try {
+			InputStream fileInputStream = CProgGenerator.class.getResourceAsStream("/"+file);
+			if(fileInputStream == null) {
+				OutputManager.printError("", file + 
+						": Could not be opened.\n", OutputLevel.FATAL);
+				System.exit(-1);
+			}
 			out = new BufferedWriter(new FileWriter(hname));
 			//fileNames.add(hname);
-			in = new BufferedReader(new FileReader(file));	
+			in = new BufferedReader(new InputStreamReader(fileInputStream));
 			CodeGenerator.plainCopyFile(out, in);
-		} catch (FileNotFoundException e) {
-			OutputManager.printError("", file + 
-					": Could not be opened.\n", OutputLevel.FATAL);
-			System.exit(-1);
 		} catch (IOException e) {
 			OutputManager.printError("", hname + 
 					": Could not be opened.\n", OutputLevel.FATAL);

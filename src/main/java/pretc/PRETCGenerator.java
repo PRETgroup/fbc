@@ -218,18 +218,20 @@ public class PRETCGenerator extends CodeGenerator {
 						if (a.getLanguage().equals("ST")) {
 							printer.print("#include \"STFunctions.h\"");
 							String stfunctions = getParentName(fileName) + "STFunctions.h";
-							String resources = "resources" + File.separatorChar + "STFunctions.h";
+							String file = "c/STFunctions.h";
 							BufferedWriter writer = null;
 							BufferedReader reader = null;
 							if (!fileNames.contains(stfunctions)) {
 								fileNames.add(stfunctions);
 								try {
-									writer = new BufferedWriter(new FileWriter(stfunctions));
-									reader = new BufferedReader(new FileReader(resources));
-								} catch (FileNotFoundException e) {
-									OutputManager.printError("", resources + 
+									InputStream fileInputStream = PRETCGenerator.class.getResourceAsStream("/"+file);
+									if(fileInputStream == null) {
+										OutputManager.printError("", file + 
 											": Could not be opened.\n", OutputLevel.FATAL);
-									System.exit(-1);
+										System.exit(-1);
+									}
+									writer = new BufferedWriter(new FileWriter(stfunctions));
+									reader = new BufferedReader(new InputStreamReader(fileInputStream));
 								} catch (IOException e) {
 									OutputManager.printError("", stfunctions + 
 											": Could not be opened.\n", OutputLevel.FATAL);
@@ -239,16 +241,18 @@ public class PRETCGenerator extends CodeGenerator {
 							}
 
 							stfunctions = getParentName(fileName) + "STFunctions.c";
-							resources = "resources" + File.separatorChar + "STFunctions.c";
+							file = "c/STFunctions.c";
 							if (!fileNames.contains(stfunctions)) {
 								fileNames.add(stfunctions);
 								try {
-									writer = new BufferedWriter(new FileWriter(stfunctions));
-									reader = new BufferedReader(new FileReader(resources));
-								} catch (FileNotFoundException e) {
-									OutputManager.printError("", resources + 
+									InputStream fileInputStream = PRETCGenerator.class.getResourceAsStream("/"+file);
+									if(fileInputStream == null) {
+										OutputManager.printError("", file + 
 											": Could not be opened.\n", OutputLevel.FATAL);
-									System.exit(-1);
+										System.exit(-1);
+									}
+									writer = new BufferedWriter(new FileWriter(stfunctions));
+									reader = new BufferedReader(new InputStreamReader(fileInputStream));
 								} catch (IOException e) {
 									OutputManager.printError("", stfunctions + 
 											": Could not be opened.\n", OutputLevel.FATAL);

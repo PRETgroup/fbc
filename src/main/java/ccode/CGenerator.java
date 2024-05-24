@@ -213,18 +213,20 @@ public class CGenerator extends CodeGenerator {
 						if (a.getLanguage().equals("ST")) {
 							printer.print("#include \"STFunctions.h\"");
 							String stfunctions = getParentName(fileName) + "STFunctions.h";
-							String resources = "resources" + File.separatorChar + "STFunctions.h";
+							String file = "c/STFunctions.h";
 							BufferedWriter writer = null;
 							BufferedReader reader = null;
 							if (!fileNames.contains(stfunctions)) {
 								fileNames.add(stfunctions);
 								try {
-									writer = new BufferedWriter(new FileWriter(stfunctions));
-									reader = new BufferedReader(new FileReader(resources));
-								} catch (FileNotFoundException e) {
-									OutputManager.printError("", resources + 
+									InputStream fileInputStream = CGenerator.class.getResourceAsStream("/"+file);
+									if(fileInputStream == null) {
+										OutputManager.printError("", file + 
 											": Could not be opened.\n", OutputLevel.FATAL);
-									System.exit(-1);
+										System.exit(-1);
+									}
+									writer = new BufferedWriter(new FileWriter(stfunctions));
+									reader = new BufferedReader(new InputStreamReader(fileInputStream));
 								} catch (IOException e) {
 									OutputManager.printError("", stfunctions + 
 											": Could not be opened.\n", OutputLevel.FATAL);
@@ -234,16 +236,18 @@ public class CGenerator extends CodeGenerator {
 							}
 
 							stfunctions = getParentName(fileName) + "STFunctions.c";
-							resources = "resources" + File.separatorChar + "STFunctions.c";
+							file = "c/STFunctions.c";
 							if (!fileNames.contains(stfunctions)) {
 								fileNames.add(stfunctions);
 								try {
-									writer = new BufferedWriter(new FileWriter(stfunctions));
-									reader = new BufferedReader(new FileReader(resources));
-								} catch (FileNotFoundException e) {
-									OutputManager.printError("", resources + 
+									InputStream fileInputStream = CGenerator.class.getResourceAsStream("/"+file);
+									if(fileInputStream == null) {
+										OutputManager.printError("", file + 
 											": Could not be opened.\n", OutputLevel.FATAL);
-									System.exit(-1);
+										System.exit(-1);
+									}
+									writer = new BufferedWriter(new FileWriter(stfunctions));
+									reader = new BufferedReader(new InputStreamReader(fileInputStream));
 								} catch (IOException e) {
 									OutputManager.printError("", stfunctions + 
 											": Could not be opened.\n", OutputLevel.FATAL);
@@ -620,17 +624,19 @@ public class CGenerator extends CodeGenerator {
 				{
 					// datatypes.h
 					hname = getParentName(fileName) + "datatypes.h";
-					String file = "resources" + File.separator + "datatypes.h";
+					String file = "c/datatypes.h";
 					BufferedWriter out = null;
 					BufferedReader in = null;
 					try {
+						InputStream fileInputStream = CGenerator.class.getResourceAsStream("/"+file);
+						if(fileInputStream == null) {
+							OutputManager.printError("", file + 
+								": Could not be opened.\n", OutputLevel.FATAL);
+							System.exit(-1);
+						}
 						out = new BufferedWriter(new FileWriter(hname));
 						fileNames.add(hname);
-						in = new BufferedReader(new FileReader(file));	
-					} catch (FileNotFoundException e) {
-						OutputManager.printError("", file + 
-								": Could not be opened.\n", OutputLevel.FATAL);
-						System.exit(-1);
+						in = new BufferedReader(new InputStreamReader(fileInputStream));
 					} catch (IOException e) {
 						OutputManager.printError("", hname + 
 								": Could not be opened.\n", OutputLevel.FATAL);
@@ -640,15 +646,17 @@ public class CGenerator extends CodeGenerator {
 					
 					// datatypes.c
 					cname = getParentName(fileName) + "datatypes.c";
-					file = "resources" + File.separator + "datatypes.c";
+					file = "c/datatypes.c";
 					try {
+						InputStream fileInputStream = CGenerator.class.getResourceAsStream("/"+file);
+						if(fileInputStream == null) {
+							OutputManager.printError("", file + 
+								": Could not be opened.\n", OutputLevel.FATAL);
+							System.exit(-1);
+						}
 						out = new BufferedWriter(new FileWriter(cname));
 						fileNames.add(cname);
-						in = new BufferedReader(new FileReader(file));
-					} catch (FileNotFoundException e) {
-						OutputManager.printError("", file + 
-								": Could not be opened.\n", OutputLevel.FATAL);
-						System.exit(-1);
+						in = new BufferedReader(new InputStreamReader(fileInputStream));
 					} catch (IOException e) {
 						OutputManager.printError("", cname + 
 								": Could not be opened.\n", OutputLevel.FATAL);

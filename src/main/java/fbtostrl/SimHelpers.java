@@ -28,10 +28,9 @@ public class SimHelpers {
 		//
 		for(String filename : filenames)
 		{
-			File infile = new File("resources"+File.separator+"simulation"+File.separator+filename);
 			File outfile = new File(FBtoStrl.opts.outputpath() + filename);
 			
-			InputStream in = new FileInputStream(infile);
+			InputStream in = SimHelpers.class.getResourceAsStream("/simulation/"+filename);
 			      
 			OutputStream out = new FileOutputStream(outfile);
 			byte[] buf = new byte[1024];
