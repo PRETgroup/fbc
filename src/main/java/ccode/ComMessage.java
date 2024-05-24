@@ -16,7 +16,7 @@ public class ComMessage {
 	}
 	
 	public final void addNodeID(int id) {
-		nodeIDs.add(new Integer(id));
+		nodeIDs.add(Integer.valueOf(id));
 	}
 	
 	public final boolean noPartnerNode() {

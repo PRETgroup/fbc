@@ -190,8 +190,8 @@ public class D3Generator extends CProgGenerator {
 						continue;
 					for (ComMessage sMsg : messages[j].sendMsgs) {
 						if (sMsg.msgEquals(rMsg)) {
-							rMsg.addNodeID(new Integer(j));
-							sMsg.addNodeID(new Integer(i));
+							rMsg.addNodeID(Integer.valueOf(j));
+							sMsg.addNodeID(Integer.valueOf(i));
 						}
 					}
 				}
@@ -214,7 +214,7 @@ public class D3Generator extends CProgGenerator {
 						continue;
 					for (ComMessage rMsg : messages[j].recvMsgs) {
 						if (rMsg.msgEquals(sMsg)) {
-							sMsg.addNodeID(new Integer(j));
+							sMsg.addNodeID(Integer.valueOf(j));
 						}
 					}
 				}
