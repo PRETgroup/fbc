@@ -75,14 +75,12 @@ public class XMLParser {
 			// Issue # 6 https://bitbucket.org/GarethNZ/fbc/issue/6/xml-validation-to-ensure-correct-code-will
 			// Parser should validate and fail, showing error
 			// But then re-try without validation
-			File path = new File("." + File.separator + "resources" + File.separator + "dtd" + 
-					File.separator + getDTDfile(inputXML));
-			if ( !path.exists() ) {
+			InputStream inputStream = XMLParser.class.getResourceAsStream("/dtd/" + getDTDfile(inputXML));
+			if (inputStream == null) {
 				// O-oh... this is unexpected! The required DTD does not exist in our 
 				// resources folder. We simply default to LibraryElement.dtd and hope for
 				// the best.
-				path = new File("." + File.separator + "resources" + File.separator + "dtd" + 
-						File.separator + "LibraryElement.dtd");
+				inputStream = XMLParser.class.getResourceAsStream("/dtd/LibraryElement.dtd");
 			}
 			
 			try {
@@ -90,7 +88,7 @@ public class XMLParser {
 				//File dtdPath = new File(dtdURL.toString());
 				//dtdPath = dtdPath.getParentFile().getParentFile();
 				SAXBuilder saxBuilder = getSaxBuilder(validation);
-				saxBuilder = changeDTD(saxBuilder, path);
+				saxBuilder = changeDTD(saxBuilder, inputStream);
 				return saxBuilder.build(inputXMLFile);
 			} catch(JDOMException e) {
 				// Print a nicer validation error output
@@ -100,7 +98,7 @@ public class XMLParser {
 				if (validation) {
 					// Ignore exception and redo without
 					SAXBuilder saxBuilder = getSaxBuilder(false);
-					saxBuilder = changeDTD(saxBuilder, path);
+					saxBuilder = changeDTD(saxBuilder, inputStream);
 					
 					try {
 						xmlDoc = saxBuilder.build(inputXMLFile);	// if this fails, give up
@@ -161,13 +159,12 @@ public class XMLParser {
 	 * @param String newDTD
 	 * @return
 	 */
-	public final static SAXBuilder changeDTD(SAXBuilder saxBuilder, final File newDTD) {
+	public final static SAXBuilder changeDTD(SAXBuilder saxBuilder, final InputStream newDTD) {
 		saxBuilder.setEntityResolver(new EntityResolver() {
 			//@Override
 			public InputSource resolveEntity(String publicId, String systemId) throws SAXException,
 					IOException {
-				InputStream inputStream = new FileInputStream(newDTD);
-				InputSource inputSource = new InputSource(inputStream);
+				InputSource inputSource = new InputSource(newDTD);
 				inputSource.setPublicId(publicId);
 				inputSource.setSystemId(systemId);
 				return inputSource;
